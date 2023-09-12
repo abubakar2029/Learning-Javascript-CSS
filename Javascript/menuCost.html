@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Cart</title>
+    <style>
+      table {
+        border: 2px solid;
+      }
+      tr td {
+        border: 2px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="menu">
+      <table>
+        <tbody id="menuCard"></tbody>
+        <tfoot>
+          <td><button onclick="calculateBill()">Check Out</button></td>
+          <td id="grossBill"></td>
+          <td id="netBill"></td>
+          <td><button onclick="newDish()">Add a Dish</button></td>
+        </tfoot>
+      </table>
+    </div>
+  </body>
+  <script>
+    let i = 0;
+    let data = localStorage.getItem("myData");
+    let dishes = JSON.parse(data) || "";
+    if (dishes == []) {
+      dishes = [
+        {
+          name: "Biryani",
+          price: 250,
+          class: "manual",
+          checked: false,
+        },
+        {
+          name: "Tikka",
+          price: 100,
+          class: "includeRoti",
+          checked: false,
+        },
+        {
+          name: "Sabzi",
+          price: 120,
+          class: "includeRoti",
+          checked: false,
+        },
+        {
+          name: "roti",
+          price: 30,
+          id: "roti",
+          checked: false,
+        },
+        {
+          name: "karahi",
+          price: 950,
+          class: "includeRoti",
+          checked: false,
+        },
+      ];
+    }
+
+    let createMenu = () => {
+      menuCard.innerHTML = "";
+      let menuArray = dishes.map((dish) => {
+        let tagAttribute = "";
+        if (dish.id) {
+          tagAttribute = `id=${dish.id}`;
+        } else if (dish.class) {
+          tagAttribute = ` class=${dish.class}`;
+        }
+        i++;
+        console.log(i);
+        return `
+     <tr ${tagAttribute}>
+        <td>${dish.name}</td>
+        <td>${dish.price}</td>
+        <td><input type="checkbox" class='chkTags' chkVar=${false} ></td>
+        <td><input type="number" /></td>
+        <td><button onclick="deleteDish(this)"  id='${i}'>Delete it!</button></td>
+
+    </tr>
+     `;
+      });
+      menuCard.innerHTML += menuArray.join("");
+    };
+    createMenu();
+
+    let total = 0,
+      qty,
+      price,
+      totalQty = 0,
+      maxDishes = 6;
+    let calculateBill = () => {
+      total = 0;
+
+      let rotiSelector = false;
+      let temp = document.getElementById("roti"),
+        tempQty;
+      console.log(temp);
+      if (temp.childNodes[5].children[0].checked) {
+        rotiSelector = true;
+      } else {
+        tempQty = +temp.childNodes[7].value || 0;
+        tempQty += 2;
+        temp.childNodes[7].children[0].value = tempQty;
+        if (tempQty > 0) {
+          temp.childNodes[5].children[0].checked = true;
+        } else {
+          temp.childNodes[5].children[0].checked = false;
+        }
+      }
+
+      let chkTags = document.getElementsByClassName("chkTags");
+      for (const chktag of chkTags) {
+        if (chktag.checked) {
+          qty = chktag.parentNode.nextElementSibling.children[0].value;
+          console.log(qty);
+          if (qty == "") {
+            qty = 0;
+          } else {
+            qty = +qty;
+          }
+          price = +chktag.parentNode.previousElementSibling.innerText;
+          if (qty + totalQty > 6) {
+            qty = maxDishes - totalQty;
+          }
+          total += Math.abs(qty * price);
+          totalQty = qty;
+        }
+
+        grossBill.innerText = `Gross Bill ${total}`;
+        netBill.innerText = `Net Bill ${total}`;
+        if (total > 1000) {
+          netBill.innerText = `Net Bill ${total * 0.9}`; //adding 9% discount
+        }
+
+        //adding-restriction of 6 dishes
+        if (totalQty == 6) {
+          break;
+        }
+      }
+    };
+
+    //remove dish function
+    let tempTag;
+    let deleteDish = (dish) => {
+      tempTag = dish.parentNode.parentNode;
+      tempTag.remove();
+      cindex = dish.id - 1;
+      dishes.splice(cindex, 1);
+      createMenu();
+      updateDB();
+    };
+
+    //new dish function
+    function newDish() {
+      let new1 = {};
+      new1.name = prompt("Name of dish");
+      new1.price = prompt("Price");
+      new1.checked = false;
+      dishes.push(new1);
+      createMenu();
+      updateDB();
+    }
+
+    updateDB = () => {
+      let currentData = JSON.stringify(dishes);
+      localStorage.setItem("myData", currentData);
+    };
+  </script>
+</html>
+
+<!--   <script>
+    let i=0;
+    let dishes = [
+      {
+        name: "Biryani",
+        price: 250,
+        class: "manual",
+        checked: false,
+      },
+      {
+        name: "Tikka",
+        price: 100,
+        class: "includeRoti",
+        checked: false,
+      },
+      {
+        name: "Sabzi",
+        price: 120,
+        class: "includeRoti",
+        checked: false,
+      },
+      {
+        name: "roti",
+        price: 30,
+        id: "roti",
+        checked: false,
+      },
+      {
+        name: "karahi",
+        price: 950,
+        class: "includeRoti",
+        checked: false,
+      },
+    ];
+
+    let createMenu = () => {
+      menuCard.innerHTML = "";
+      let menuArray = dishes.map((dish) => {
+        let tagAttribute = "";
+        if (dish.id) {
+          tagAttribute = `id=${dish.id}`;
+        } else if (dish.class) {
+          tagAttribute = ` class=${dish.class}`;
+        }
+        i++;
+        console.log(i);
+        return `
+     <tr ${tagAttribute}>
+        <td>${dish.name}</td>
+        <td>${dish.price}</td>
+        <td><input type="checkbox" class='chkTags'}></td>
+        <td><input type="number" /></td>
+        <td><button onclick="deleteDish(this)"  id='${i}'>Delete it!</button></td>
+
+    </tr>
+     `;
+      });
+      menuCard.innerHTML += menuArray.join("");
+    };
+    createMenu();
+
+    let total = 0,
+      qty,
+      price,
+      totalQty = 0,
+      maxDishes = 6;
+    let calculateBill = () => {
+      total = 0;
+
+
+
+      // for (const tag of ) {
+        
+      // }
+      let chkTags = document.getElementsByClassName("chkTags");
+      for (const chktag of chkTags) {
+
+        if (chktag.checked) {
+          qty = +chktag.parentNode.nextElementSibling.children[0].value || 1;
+          price = +chktag.parentNode.previousElementSibling.innerText;
+          if (qty + totalQty > 6) {
+            qty = maxDishes - totalQty;
+          }
+          total += Math.abs(qty * price);
+          totalQty = qty;
+        }
+
+        grossBill.innerText = `Gross Bill ${total}`;
+        netBill.innerText = `Net Bill ${total}`;
+        if (total > 1000) {
+          netBill.innerText = `Net Bill ${total * 0.9}`; //adding 9% discount
+        }
+
+        //adding-restriction of 6 dishes
+        if (totalQty == 6) {
+          break;
+        }
+      }
+    };
+
+      //remove dish function
+     let tempTag;
+  let deleteDish = (dish) => {
+    console.log(dish);
+    tempTag=dish.parentNode.parentNode;
+    console.log(tempTag);
+    tempTag.remove();
+    dishes.indexOf
+
+  };
+    
+
+
+    //new dish function
+    function newDish() {
+      let new1 = {};
+      new1.name = prompt("Name of dish");
+      new1.price = prompt("Price");
+      dishes.push(new1);
+      createMenu();
+    }
+  </script> -->
+
+<!-- function updateRotiCheckbox(checkbox) {
+        if (checkbox.checked) {
+          rotiSelector.checked = true;
+        } else {
+          let chkTags = document.getElementsByClassName("chkTags");
+          let isChecked = false;
+          for (const chktag of chkTags) {
+            if (chktag.checked) {
+              isChecked = true;
+              break;
+            }
+          }
+          if (!isChecked) {
+            rotiSelector.checked = false;
+          }
+        }
+      } -->

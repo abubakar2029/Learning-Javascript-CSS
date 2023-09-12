@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>First Class</title>
+  </head>
+  <style>
+    canvas {
+      border: 1px solid red;
+    }
+  </style>
+  <body>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+  </body>
+  <script>
+    let pen = myCanvas.getContext("2d");
+    pen.strokeStyle = "red";
+    pen.strokeRect(200, 200, 150, 50);
+    pen.fillStyle = "magenta";
+    pen.fillRect(200, 200, 150, 50);
+
+    // 0 to 360 degree
+    // 57
+    pen.fillStyle = "yellow";
+    pen.arc(100, 100, 70, 0, 7);
+    pen.fill();
+    pen.stroke();
+
+    pen.moveTo(250, 250);
+    pen.lineTo(300, 150);
+    pen.lineTo(350, 250);
+    pen.lineTo(250, 250);
+    pen.stroke();
+
+    let img = document.createElement("img");
+    img.src = "logo.png";
+
+    img.onload = function () {
+      pen.drawImage(img, 50, 50);
+    };
+  </script>
+</html>

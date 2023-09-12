@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+</head>
+
+<body>
+    <div id="displayTime"></div>
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="clear1()">Clear</button>
+</body>
+<script>
+    let key = 0;
+    let i=0;
+    function start() {
+        key = setInterval(() => {
+            displayTime.innerText = i;
+            console.log(i);
+            i++;
+        }, 1000);
+        
+    }
+    function stop() {
+        clearInterval(key)
+    }
+    function clear1() {
+        i=0;
+        displayTime.innerText = i;
+        console.log(i);
+        stop();
+    }
+</script>
+
+</html>

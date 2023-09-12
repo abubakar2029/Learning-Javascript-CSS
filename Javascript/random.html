@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tagBox {
+            width: 50px;
+            height: 50px;
+        }
+
+        #display {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="display"></div>
+    <div id="image"></div>
+
+    <script>
+        function imageFinder(word) {
+            let img = document.createElement("img");
+            img.src = word + '.jpg'
+        }
+
+        document.onkeypress = (e) => {
+            console.log(e);
+            let box = document.createElement("div");
+            box.className = "tagBox";
+            box.style.backgroundColor = "#" + Math.round(Math.random() * 1000000);
+            console.log("#" + Math.round(Math.random() * 1000000));
+            box.innerText = e.key;
+            display.appendChild(box);
+            imageFinder(display.innerText);
+        }
+    </script>
+</body>
+
+</html>

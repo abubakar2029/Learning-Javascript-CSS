@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get And Load File</title>
+    <style>
+      #displayContainer {
+        width: 500px;
+        height: 400px;
+      }
+      canvas {
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="file" id="fileObject" />
+      <button onclick="loadFile()">Load File</button>
+      <div id="displayContainer"></div>
+    </div>
+
+    <canvas id="myCanvas"> </canvas>
+  </body>
+  <script>
+    let pen = myCanvas.getContext("2d");
+    pen.strokeRect(200, 200, 150, 50);
+    pen.strokeStyle = "red";
+
+    let loadFile = () => {
+      let fileObject = document.getElementById("fileObject");
+      let file = fileObject.files[0];
+      let imgTag = document.createElement("img");
+      imgTag.src = URL.createObjectURL(file);
+      console.log(imgTag);
+      displayContainer.appendChild(imgTag);
+      console.log(displayContainer.appendChild(imgTag));
+    };
+  </script>
+</html>

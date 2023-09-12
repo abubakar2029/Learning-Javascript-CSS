@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promises</title>
+  </head>
+  <body></body>
+  <script>
+    function name1() {
+      // setInterval
+      return new Promise(function (c, e) {
+        c(20);
+        // alert(c);
+      });
+    }
+    name1().then(function (val) {
+      alert(val);
+    });
+    name1();
+  </script>
+</html>

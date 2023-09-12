@@ -1,0 +1,104 @@
+<style>
+  .data {
+    width: 100%;
+    height: 100%;
+  }
+
+  #buttonsContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    height: fit-content;
+  }
+
+  .button {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: orange;
+    border-radius: 50px;
+  }
+
+  .button:first-child {
+    float: right;
+  }
+
+  #slider {
+    position: relative;
+    width: 700px;
+    height: 400px;
+  }
+
+  .button span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+  }
+</style>
+
+<div id="slider">
+  <div id="imageContainer">
+    <img id="myPic" src="1.jpg" class="data" />
+  </div>
+
+  <div id="buttonsContainer">
+    <div onclick="moveRight()" class="button"><span>&gt; </span></div>
+    <div onclick="moveLeft()" class="button"><span>&lt;</span></div>
+  </div>
+</div>
+
+<script>
+  let currentPicture = 1;
+
+  function moveLeft() {
+    currentPicture--;
+
+    if (currentPicture < 1) {
+      currentPicture = 5;
+    }
+
+    myPic.src = currentPicture + ".jpg";
+  }
+
+  // setInterval(moveRight, 2000);
+
+  function moveRight() {
+    currentPicture++;
+
+    if (currentPicture > 5) {
+      currentPicture = 1;
+    }
+
+    let opacity = 1;
+
+    let key = setInterval(() => {
+      //function to animate the transition of the image's opacity.
+      opacity -= 0.1;
+      myPic.style.opacity = opacity;
+
+      if (opacity < 0) {
+        clearInterval(key);
+
+        myPic.src = currentPicture + ".jpg";
+
+        let key1 = setInterval(() => {
+          opacity += 0.1;
+          myPic.style.opacity = opacity;
+
+          if (opacity == 1) {
+            clearInterval(key1);
+            console.log(opacity);
+          }
+        }, 30);
+      }
+    }, 30);
+  }
+</script>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 3px 4px;
+        text-align: center;
+      }
+      table,
+      th,
+      tr,
+      td,
+      tfoot,
+      thead {
+        border: 2px solid black;
+      }
+      thead,
+      tfoot {
+        background-color: bisque;
+      }
+      button {
+        cursor: pointer;
+        /* border: 1px solid black; */
+        /* border-radius: 5px; */
+      }
+      #addBtn {
+        background-color: transparent;
+        border: none;
+      }
+      .indexRow {
+        width: 3px;
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body onload="createTable()">
+    <table id="userTable01">
+      <thead>
+        <th>No.</th>
+        <th onclick="sort('name')">Name</th>
+        <th onclick="sort('city')">City</th>
+        <th onclick="sort('balance')">Balance</th>
+        <th>Del/Edit</th>
+        <th>Amount</th>
+      </thead>
+      <tbody id="infoContainer"></tbody>
+      <tfoot>
+        <td colspan="2" style="border-radius: 3px">
+          <button onclick="addUser()" id="addBtn">Add a User</button>
+        </td>
+      </tfoot>
+    </table>
+  </body>
+  <script>
+    let users = [
+      {
+        name: "Danial",
+        city: "HongKong",
+        balance: 420,
+      },
+      {
+        name: "Edwin",
+        city: "Budapest",
+        balance: 320,
+      },
+      {
+        name: "Marie Curie",
+        city: "New York",
+        balance: 220,
+      },
+      {
+        name: "Babar",
+        city: "Kabul",
+        balance: 120,
+      },
+    ];
+    function createTable() {
+      infoContainer.innerHTML = " ";
+      let i = 0;
+
+      for (const user of users) {
+        //table-creation
+        let indexTD = document.createElement("td");
+        indexTD.innerHTML = `<b>${i}</b>`;
+        indexTD.className = "indexRow";
+
+        let nameTD = document.createElement("td");
+        nameTD.innerText = user.name;
+
+        let cityTD = document.createElement("td");
+        cityTD.innerText = user.city;
+
+        let balanceTD = document.createElement("td");
+        balanceTD.innerText = user.balance;
+
+        let btnTD = document.createElement("td");
+
+        //del-Button
+        let delBtn = document.createElement("button");
+        delBtn.innerText = "Del";
+        delBtn.onclick = function () {
+          tr.remove();
+          let cindex = users.indexOf(user);
+          users.splice(cindex, 1);
+        };
+
+        //edit-Buttton
+        let editBtn = document.createElement("button");
+        editBtn.innerHTML = `<i>Edit</i>`;
+        editBtn.onclick = function () {
+          let cindex = users.indexOf(user);
+          editData = {};
+          editData.name = prompt(`New name of ${user.name}`);
+          editData.city = prompt(`New city of ${user.name}`);
+          editData.balance = prompt(`New name of ${user.name}`);
+
+          if (isNaN(editData.balance)) {
+            alert("Amount is not a number");
+          }
+          editData.balance = +editData.balance;
+          users[cindex] = editData;
+          createTable();
+        };
+        editBtn.onclick = function () {
+          let temp = document.getElementsByClassName("");
+          for (let j = 0; j < 4; j++) {
+            console.log(temp);
+            console.log(temp[j]);
+          }
+        };
+
+        let calcAmount = document.createElement("td");
+        calcAmountBtn = document.createElement("button");
+        calcAmountBtn.innerText = "Calculate";
+        calcAmountBtn.onclick = function () {
+          console.log(user);
+          let temp=user.balance;
+        };
+        calcAmount.appendChild(calcAmountBtn);
+
+        /* appending cells into rows, rows into table */
+        btnTD.append(delBtn, editBtn);
+
+        let tr = document.createElement("tr");
+        tr.append(indexTD, nameTD, cityTD, balanceTD, btnTD, calcAmount);
+
+        infoContainer.appendChild(tr); /* infoConatainer is id of tbody */
+        i++;
+      }
+    }
+
+    function addUser() {
+      let newUser = {};
+      newUser.name = prompt("Enter user name");
+      newUser.city = prompt("User City");
+      newUser.balance = prompt("User balance");
+
+      if (newUser.name && newUser.city && newUser.balance) {
+        if (isNaN(newUser.balance)) {
+          alert("Balance is not in numbers");
+        }
+        newUser.balance = +newUser.balance;
+        users.push(newUser);
+      } else {
+        alert("Please provide all the information.");
+      }
+
+      createTable();
+    }
+    function sort(method) {
+      users.sort(function (a, b) {
+        if (a[method] > b[method]) {
+          return 1;
+        } else if (a[method] < b[method]) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      createTable();
+    }
+  </script>
+</html>

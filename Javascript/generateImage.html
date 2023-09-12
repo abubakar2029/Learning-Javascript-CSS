@@ -1,0 +1,50 @@
+<style>
+  .box {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 1px solid red;
+    font-size: 4em;
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div id="some"></div>
+  <div id="picture"></div>
+</body>
+
+<script>
+  function checkItem(word) {
+    let item = document.createElement("img");
+
+    item.src = word + ".jpg";
+    item.onload = function () {
+      some.innerHTML = "";
+      picture.innerHTML = "";
+      picture.appendChild(item);
+    };
+  }
+
+  document.onkeypress = function (evt) {
+    let box = document.createElement("div");
+    box.className = "box";
+
+    box.style.backgroundColor =
+      "rgb(" +
+      Math.round(Math.random() * 255) +
+      " " +
+      Math.round(Math.random() * 255) +
+      " " +
+      Math.round(Math.random() * 255) +
+      ")";
+
+    box.innerText = evt.key;
+
+    some.appendChild(box);
+
+    checkItem(some.innerText);
+
+    console.log(evt.key);
+  };
+</script>

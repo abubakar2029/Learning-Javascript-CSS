@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Carousal</title>
+    <style>
+        #carousalContainer{
+            position: absolute;
+        }
+
+      .data {
+        width: 700px;
+        height: 400px;
+      }
+      #carousalBtns {
+        position: relative;
+      }
+      #carousalContainer{
+        position: relative;
+      }
+      .button:last-child {
+        margin: auto;
+        left: 0;
+        right: 0;
+        background-color: aqua;
+        float: right;
+      }
+      .button:first-child {
+        margin: auto;
+        /* left: 0;
+            right: 0; */
+        background-color: magenta;
+        /* float: ri; */
+      }
+      .button {
+        cursor: pointer;
+        position: relative;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+      .button span {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: fit-content;
+        height: fit-content;
+        left: 0;
+        right: 0;
+        size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="carousalContainer">
+      <div id="carousalImg">
+        <img src="./1.PNG" alt="" class="data" />
+      </div>
+      <div id="carousalBtns">
+        <div class="button"><span>&lt;</span></div>
+        <div class="button"><span>&gt;</span></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function moveLeft() {}
+    function moveRight() {}
+  </script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Element</title>
+    <style>
+        .draggable-element {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="draggable-element"></div>
+    <script>
+        const draggableElement = document.querySelector('.draggable-element');
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        // Function to handle mouse down event
+        draggableElement.addEventListener('mousedown', onMouseDown);
+        function onMouseDown(e) {
+            isDragging = true;
+            offsetX = e.clientX - draggableElement.getBoundingClientRect().left;
+            offsetY = e.clientY - draggableElement.getBoundingClientRect().top;
+            console.log(e);
+        }
+
+        // Function to handle mouse move event
+        document.addEventListener('mousemove', onMouseMove);
+        function onMouseMove(e) {
+            if (!isDragging) return;
+
+            const x = e.clientX - offsetX;
+            const y = e.clientY - offsetY;
+
+            draggableElement.style.left = x + 'px';
+            draggableElement.style.top = y + 'px';
+        }
+
+        // Function to handle mouse up event
+        document.addEventListener('mouseup', onMouseUp);
+        function onMouseUp() {
+            isDragging = false;
+        }
+    </script>
+</body>
+
+</html>

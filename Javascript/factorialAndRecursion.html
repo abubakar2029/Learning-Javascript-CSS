@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>15-July-2023</title>
+  </head>
+  <body></body>
+  <script>
+    /* Calculating Factorial */
+    function factorial(num) {
+      if (num == 1) {
+        return 1;
+      } else {
+        return factorial(num - 1) * num;
+      }
+    }
+    let temp = factorial(5);
+    console.log(temp);
+
+    /* Removing Even numbers by recursion */
+    let arr = [1, 2, 3, 5, 6, 9, 8, 7, 4, 56, 5, 32, 666];
+    function removeEven(a) {
+      let res = checkEven(arr);
+
+      console.log("res=", res);
+
+      if (res !== undefined) {
+        let cindex = arr.indexOf(res);
+
+        console.log("cindex=", cindex);
+
+        arr.splice(cindex, 1);
+        removeEven(arr);
+      } else {
+        console.log("=========");
+        console.log(arr);
+      }
+    }
+    function checkEven(a) {
+      return a.find(function (num) {
+        if (num % 2 == 0) {
+          return true;
+        }
+      });
+    }
+    removeEven(arr);
+  </script>
+</html>

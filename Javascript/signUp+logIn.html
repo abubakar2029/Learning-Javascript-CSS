@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up / Login In</title>
+  </head>
+  <body>
+    <h1>SignUp Page</h1>
+    <!-- <form> -->
+    <label for="">Create an id name</label>
+    <input type="text" id="newName" />
+    <label for="">Create a password</label>
+    <input type="password" id="newPassword" />
+    <button onclick="submit()">Sign Up</button>
+    <!-- </form> -->
+
+    <h1>Login Page</h1>
+    <label for="">Create an id name</label>
+    <input type="text" id="userName" />
+    <label for="">Create a password</label>
+    <input type="password" id="userPassword" />
+    <button onclick="login()">Login</button>
+  </body>
+  <script>
+    let users = [];
+
+    /* Getting data */
+    let oldData = JSON.parse(localStorage.getItem("myData"));
+    console.log(oldData);
+    if (oldData !== null) {
+      users = oldData;
+    }
+
+    /* SignUp form */
+    function submit() {
+      console.log("====");
+      let newUser = {
+        name: document.getElementById("newName").value,
+        password: +document.getElementById("newPassword").value,
+      };
+      if (newUser.name && newUser.password) {
+        users.push(newUser);
+        alert("You are signed");
+      } else {
+        alert("Complete the form");
+      }
+      updateDb();
+    }
+
+    /* Login form */
+    let count;
+    function login(array) {
+      count = 0;
+      let userLogin = {
+        name: document.getElementById("userName").value,
+        password: +document.getElementById("userPassword").value,
+      };
+      for (const user of users) {
+        console.log("entered");
+        if (
+          userLogin.name == user.name &&
+          userLogin.password == user.password
+        ) {
+          count++;
+          alert("You are logged in");
+          break;
+        }
+      }
+      if (count == 0) {
+        alert("You entered wrong id and password");
+      }
+    }
+
+    /* Update DataBase */
+    function updateDb() {
+      let currentData = JSON.stringify(users);
+      localStorage.setItem("myData", currentData);
+    }
+  </script>
+</html>

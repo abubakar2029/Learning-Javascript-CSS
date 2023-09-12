@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag Box Project</title>
+    <style>
+      #box:hover {
+        box-shadow: 0px 0px 5px 10px black;
+      }
+      #box {
+        position: absolute;
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        right: 0;
+        border: 1px solid;
+      }
+
+      #parent1 {
+        width: 400px;
+        height: 400px;
+      }
+
+      #parent2 {
+        width: 400px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box" style="background-color: orange"></div>
+
+    <div id="parent1" style="background-color: green"></div>
+    <div id="parent2" style="background-color: orange"></div>
+
+  </body>
+  <script>
+    let pressKaraHua = false;
+    let x = 0;
+    let y = 0;
+
+    box.onmousedown = function () {
+      pressKaraHua = true;
+      x = event.clientX - box.offsetLeft;
+      y = event.clientY - box.offsetTop;
+      console.log("mouse down tha " + pressKaraHua);
+    };
+
+    box.onmousemove = function () {
+      if (pressKaraHua == true) {
+        box.style.left = event.clientX - x + "px";
+        box.style.top = event.clientY - y + "px";
+        console.log("mouse move tha " + pressKaraHua);
+      }
+    };
+
+    box.onmouseup = function () {
+      pressKaraHua = false;
+      dropChecKaro();
+      console.log("mouse up tha " + pressKaraHua);
+    };
+
+    function dropChecKaro() {
+      let isTagMGira = null;
+
+      let boxRight = box.offsetLeft + box.offsetWidth;
+      let parent1Right = parent1.offsetLeft + parent1.offsetWidth;
+
+      let boxBottom = box.offsetTop + box.offsetHeight;
+      let parent1Bottom = parent1.offsetTop + parent1.offsetHeight;
+
+      if (
+        boxBottom < parent1Bottom &&
+        box.offsetLeft > parent1.offsetLeft &&
+        box.offsetTop > parent1.offsetTop &&
+        boxRight < parent1Right
+      ) {
+        alert("box 1 m gira");
+        isTagMGira = parent1;
+      }
+
+      let parent2Right = parent2.offsetLeft + parent2.offsetWidth;
+      let parent2Bottom = parent2.offsetTop + parent2.offsetHeight;
+
+      if (
+        boxBottom < parent2Bottom &&
+        box.offsetLeft > parent2.offsetLeft &&
+        box.offsetTop > parent2.offsetTop &&
+        boxRight < parent2Right
+      ) {
+        alert("box 2 m gira");
+        isTagMGira = parent2;
+      }
+
+      if (isTagMGira.style.backgroundColor == box.style.backgroundColor) {
+        alert("wah g wah");
+        isTagMGira.style.borderRadius = isTagMGira.offsetWidth + "px";
+      } else {
+        alert("afsos");
+      }
+
+      console.log(isTagMGira);
+    }
+
+    function some() {
+      alert("I am chaling");
+    }
+  </script>
+</html>

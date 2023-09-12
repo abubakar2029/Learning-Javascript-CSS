@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show User File</title>
+  </head>
+  <body>
+    <div>
+      <input type="file" id="fileInput" />
+      <button onclick="loadFile()">Load File</button>
+    </div>
+    <div id="showFileContainer" style="height: 100px;"></div>
+    <script>
+      let file,fileInput;
+     
+    function loadFile() {
+      fileInput = document.getElementById("fileInput");
+      console.log(fileInput)
+      file = fileInput.files[0];
+      console.log(file)
+      let imgTag;
+      
+      if (!(file.name.includes('.mp4'))) {
+        imgTag=document.createElement('img');
+        imgTag.src=URL.createObjectURL(file);
+      }
+
+      else {
+        imgTag=document.createElement('video');
+        imgTag.src=URL.createObjectURL(file);
+      }
+      
+      showFileContainer.appendChild(imgTag); //appendig in an id
+
+    }
+    
+    
+  </script>
+</html>
