@@ -1,0 +1,50 @@
+<style>
+    #parent {
+        width: fit-content;
+        height: fit-content;
+        border: 1px solid red;
+        margin: auto;
+        position: relative;
+    }
+
+    #child {
+        height: 400px;
+        width: 400px;
+        border-radius: 50%;
+        background-color: cadetblue;
+    }
+
+    #needle {
+        width: 0px;
+        height: 20px;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-left: 10px solid transparent;
+        border-right: 9px solid transparent;
+        border-bottom: 180px solid magenta;
+        transform-origin: bottom;
+        transform: rotate(99)degree;
+    }
+</style>
+
+<body>
+
+    <div id="parent">
+        <div id="child"></div>
+        <div id="needle"></div>
+    </div>
+</body>
+<script>
+    let i = -82;
+    let key = setInterval(() => {
+        i++,
+            needle.style.transform = `rotate(${i}deg)`
+        if (i == 80) {
+            i = -82;
+        }
+    }, 10)
+</script>

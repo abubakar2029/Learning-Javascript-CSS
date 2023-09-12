@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | QR code component</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @media only screen and (max-width: 1150px) {
+      .card-content>h1 {
+        font-size: 24px;
+      }
+    }
+
+    @media only screen and (max-width: 900px) {
+      .card-content>h1 {
+        font-size: 18px;
+      }
+
+      .card-content p {
+        font-size: 14px;
+      }
+    }
+
+    @media only screen and (max-width: 700px) {
+      .card-content>h1 {
+        font-size: 16px;
+      }
+
+      .card-content p {
+        font-size: 12px;
+      }
+    }
+
+    @media only screen and (max-width: 550px) {
+      .card-content>h1 {
+        font-size: 13px;
+      }
+    }
+
+    #main-div {
+      background-color: #f1f5f9;
+    }
+
+    /* Universal selector will remove default margin or padding */
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    #title {
+      display: flex;
+      justify-content: space-between;
+      background-color: #0074e4;
+      color: white;
+      width: 100%;
+      padding: 5px 15px;
+    }
+
+    #barcode-card {
+      width: 35%;
+      background-color: white;
+      text-align: center;
+      margin: 15px auto;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 18px;
+      row-gap: 10px;
+      border-radius: 20px;
+      padding-bottom: 3%;
+    }
+
+    #qr-Img {
+      border-radius: 14px;
+    }
+
+    .card-content {
+      padding: 10px 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main-div">
+    <div id="title">
+      <h1>
+        Challenge-01
+      </h1>
+      <h1>
+        A QR code Reader
+      </h1>
+    </div>
+    <div id="barcode-card">
+      <img src="./images/image-qr-code.png" alt="qrcode" width="90%" id="qr-Img" />
+      <div class="card-content">
+        <h1><b>
+            Improve your front-end skills by building projects</b></h1>
+      </div>
+      <div class="card-content">
+        <p style="color: #94a3b8; width: 90%; margin: 0 auto;">
+          Scan the QR code to visit Frontend Mentor and take your coding skills to the next level
+        </p>
+      </div>
+    </div>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="#">Abu Bakar</a>.
+    </div>
+  </div>
+</body>
+
+</html>
